@@ -1,8 +1,12 @@
 import {useRef, useState, useEffect } from "react"
 import Task from "./Task"
+import useColor from './stores/useColor'
 
 export default function Main()
 {
+    const getBlueColor = useColor((state)=>{ return state.getBlueColor })
+    const getPnikColor = useColor((state)=>{ return state.getPnikColor })
+
     const [taskValue, setTaskValue] = useState('')
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) ?? [])
 
@@ -15,11 +19,18 @@ export default function Main()
     function chooseCategory(event)
     {
         const radioInput = event.target.closest('.category__radio')
-        radioInput.classList.contains('personal-radio') ? category = 'personal' : category = 'business'
+
+        if(radioInput.classList.contains('personal-radio')) {
+            category = 'personal'
+            getPnikColor()
+        }else  {
+            category = 'business'
+            getBlueColor()
+        }
 
     }
 
-    console.log('render')
+    // console.log('render')
 
     function addTask(event)
     {
@@ -32,7 +43,6 @@ export default function Main()
 
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks))
-        console.log(tasks)
     }, [tasks]);
 
     return <>
