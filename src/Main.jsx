@@ -20,7 +20,7 @@ export default function Main()
     {
         const radioInput = event.target.closest('.category__radio')
 
-        if(radioInput.classList.contains('personal-radio')) {
+        if(radioInput && radioInput.classList.contains('personal-radio')) {
             category = 'personal'
             getPnikColor()
         }else  {

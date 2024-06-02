@@ -7,6 +7,7 @@ import fragmentShader from './materials/backgroundMaterial/fragment.glsl'
 import vertexShader from './materials/backgroundMaterial/vertex.glsl'
 
 import useColor from '../stores/useColor'
+import gsap from 'gsap'
 
 
 export default function Background()
@@ -24,13 +25,21 @@ export default function Background()
     window.addEventListener('click', (event)=>{
         const categoryInput = event.target.closest('.category__radio:checked')
 
-        if(categoryInput.classList.contains('personal-radio')) {
-            meshRef.current.material.uniforms.uColor.value.y = 1.0
-            meshRef.current.material.uniforms.uColor.value.z = 0.5
+        if(categoryInput && categoryInput.classList.contains('personal-radio')) {
+            gsap.to(meshRef.current.material.uniforms.uColor.value, {
+                y: 1.0,
+                z: 0.5,
+                duration: 0.5,
+                ease: 'power2'
+            })
 
         }else  {
-            meshRef.current.material.uniforms.uColor.value.y = 0.0
-            meshRef.current.material.uniforms.uColor.value.z = 0.0
+            gsap.to(meshRef.current.material.uniforms.uColor.value, {
+                y: 0.0,
+                z: 0.0,
+                duration: 0.5,
+                ease: 'power2'
+            })
         }
     })
 
