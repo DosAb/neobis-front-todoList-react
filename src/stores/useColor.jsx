@@ -3,8 +3,6 @@ import { create } from 'zustand'
 export default create((set) =>
 {
     return {
-        blocksCount: 10,
-
         color: 'blue',
 
         getBlueColor: ()=>

@@ -1,5 +1,8 @@
+import {useRef, useState, useEffect } from "react"
+
 export default function Task({post, category, setTasks, index, tasks})
 {
+    const taskInputRef = useRef()
 
     function editButton(event)
     {
@@ -11,13 +14,19 @@ export default function Task({post, category, setTasks, index, tasks})
     {
         const deletedTasks = tasks.filter((item, i) =>  i !== index)
         setTasks(deletedTasks)
-       
+    }
+
+    function completeTask(event)
+    {
+        console.log(taskInputRef.current)
+        taskInputRef.current.checked = !taskInputRef.current.checked
+        taskInputRef.current.checked == true ? taskInputRef.current.style.textDecoration = 'line-through' : taskInputRef.current.style.textDecoration = 'none'  
     }
 
     return <>
         <div className="task-container" >
-            <input type="checkbox" className={`task-complete ${category == 'business' ? 'checkbox-blue' : 'checkbox-pink'}`} />
-            <input value={post} className="task-result" disabled={true} style={{boxShadow: 'inset'}} />
+            <input onClick={completeTask} type="checkbox" className={`task-complete ${category == 'business' ? 'checkbox-blue' : 'checkbox-pink'}`} />
+            <input ref={taskInputRef} value={post} checked={false} className="task-result" disabled={true} style={{boxShadow: 'inset'}} />
             <button onClick={editButton} className="edit">edit</button>
             <button onClick={deleteButton} className="delete">delete</button>
         </div>
