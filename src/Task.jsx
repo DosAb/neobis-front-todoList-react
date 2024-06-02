@@ -18,7 +18,6 @@ export default function Task({post, category, setTasks, index, tasks})
 
     function completeTask(event)
     {
-        console.log(taskInputRef.current)
         taskInputRef.current.checked = !taskInputRef.current.checked
         taskInputRef.current.checked == true ? taskInputRef.current.style.textDecoration = 'line-through' : taskInputRef.current.style.textDecoration = 'none'  
     }
